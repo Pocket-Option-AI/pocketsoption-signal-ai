@@ -9,24 +9,30 @@
 </head>
 <body>
 
-  <!-- TOP NAVIGATION -->
-  <nav class="main-nav">
-    <div class="nav-brand">SIGNAL<span>FORGE AI</span></div>
-    <div class="nav-links">
-      <a href="#" class="active">Trades</a>
-      <a href="#">Signals</a>
-      <a href="#">AI Trader</a>
-      <a href="#">Social Trading</a>
-      <a href="#">Wallet</a>
-      <a href="#">More</a>
-    </div>
-    <div class="nav-auth">
-      <button class="btn-login" id="show-login">Login</button>
-      <button class="btn-register" id="show-register">Register</button>
-    </div>
-  </nav>
+  <!-- ================= LANDING PAGE (LIGHT MODE) ================= -->
+  <div id="landing-page">
+    <nav class="light-nav">
+      <div class="nav-brand">SIGNAL<span>FORGE AI</span></div>
+      <div class="nav-links">
+        <a href="#" class="active">Home</a>
+        <a href="#">Features</a>
+        <a href="#">Signals</a>
+        <a href="#">Pricing</a>
+      </div>
+      <div class="nav-auth">
+        <button class="btn-login-light" id="show-login">Login</button>
+        <button class="btn-register-light" id="show-register">Register</button>
+      </div>
+    </nav>
 
-  <!-- AUTH MODAL -->
+    <div class="hero-section">
+      <h1>Trade Smarter with <span>SignalForge AI</span></h1>
+      <p>Advanced Forex market analysis and automated trading signals.</p>
+      <button class="btn-cta" onclick="document.getElementById('show-register').click()">Get Started Now</button>
+    </div>
+  </div>
+
+  <!-- ================= AUTH MODAL ================= -->
   <div id="auth-modal" class="modal">
     <div class="modal-content">
       <span class="close-btn" id="close-modal">&times;</span>
@@ -46,75 +52,122 @@
     </div>
   </div>
 
-  <!-- PUBLIC TRADING DASHBOARD -->
-  <div id="public-dashboard" class="dashboard-container">
+  <!-- ================= TRADING DASHBOARD (DARK MODE - Pocket Option Style) ================= -->
+  <div id="trading-dashboard">
     
-    <div class="chart-section">
-      <div class="chart-header">
-        <div class="pair-selector">
-          <select id="pair-select">
-            <option>EUR/USD</option>
-            <option>GBP/USD</option>
-            <option>USD/JPY</option>
-            <option>AUD/USD</option>
-            <option>USD/CAD</option>
-          </select>
-        </div>
-        <div class="timeframe-selector">
-          <select id="chart-timeframe">
-            <option value="1">1 sec</option>
-            <option value="5">5 sec</option>
-            <option value="15">15 sec</option>
-            <option value="60">1 min</option>
-            <option value="300">5 min</option>
-          </select>
-        </div>
-        <div class="live-price" id="live-price">1.0854</div>
+    <!-- TOP NAVBAR -->
+    <div class="dark-navbar">
+      <div class="nav-left">
+        <div class="avatar-circle">👤</div>
+        <div class="gift-icon" style="color: #2777E8;"><i class="fa-solid fa-gift"></i></div>
       </div>
-
-      <div class="canvas-container">
-        <canvas id="chartCanvas"></canvas>
-        <div class="chart-overlay">
-          <div class="price-levels" id="price-levels"></div>
-          <div class="time-axis" id="time-axis"></div>
-        </div>
+      <div class="nav-center">
+        <div class="account-selector"><span>QT Real</span> <span style="font-size: 10px; margin-left:5px;">▼</span></div>
+        <div class="nav-balance" id="nav-balance">$0.00</div>
+      </div>
+      <div class="nav-right">
+        <button class="wallet-icon-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
       </div>
     </div>
 
-    <div class="trade-controls">
-      <div class="control-row">
-        <div class="control-group">
-          <label>Expiry</label>
-          <select id="trade-expiry">
-            <option value="3">3 sec</option>
-            <option value="5">5 sec</option>
-            <option value="15">15 sec</option>
-            <option value="30">30 sec</option>
-            <option value="60">1 min</option>
-          </select>
-        </div>
-        <div class="control-group">
-          <label>Amount ($)</label>
-          <input type="number" id="trade-amount" value="10" min="1">
-        </div>
+    <!-- ASSET BAR -->
+    <div class="dark-asset-bar">
+      <select id="pair-select" style="flex: 1;">
+        <option>🇦🇪 AED/CNY OTC</option>
+        <option>🇪🇺 EUR/USD</option>
+        <option>🇬🇧 GBP/USD</option>
+        <option>🇺🇸 USD/JPY</option>
+      </select>
+      <select id="timeframe-select" style="width: 100px;">
+        <option value="3">3 sec</option>
+        <option value="5">5 sec</option>
+        <option value="15">15 sec</option>
+        <option value="60">1 min</option>
+      </select>
+    </div>
+
+    <!-- CHART AREA -->
+    <div class="dark-chart-wrap">
+      <div class="chart-info">
+        <div style="font-size: 16px; color: #fff; font-weight: bold;" id="live-price">1.68914</div>
+        <div style="font-size: 11px; color: #9AA8BE;" id="live-time">16:14:22 UTC+3</div>
+      </div>
+      
+      <div class="expiry-badge">
+        <div>Expiration time</div>
+        <div id="expiry-time-top" style="color: #fff; font-size: 14px; font-weight: bold;">16:14:25</div>
       </div>
 
-      <div class="payout-info">
-        <span>Payout: <strong>+85%</strong></span>
-        <span>Profit: <strong id="potential-profit">$8.50</strong></span>
+      <canvas id="chartCanvas"></canvas>
+      
+      <div class="price-levels">
+        <div>1.68950</div>
+        <div>1.68900</div>
+        <div>1.68850</div>
+        <div>1.68800</div>
       </div>
 
-      <div class="action-buttons">
-        <button class="btn-buy" id="btn-buy">BUY</button>
-        <button class="btn-sell" id="btn-sell">SELL</button>
+      <div class="time-axis">
+        <div>16:13:15</div>
+        <div>16:13:30</div>
+        <div>16:13:45</div>
+        <div>16:14</div>
+        <div>16:14:15</div>
       </div>
     </div>
 
-  </div>
+    <!-- RATIO BAR -->
+    <div class="ratio-bar-container">
+      <div class="ratio-labels">
+        <span style="color: #16A765;">23%</span>
+        <span style="color: #F04444;">77%</span>
+      </div>
+      <div class="ratio-bar">
+        <div class="ratio-green" style="width: 23%;"></div>
+        <div class="ratio-red" style="width: 77%;"></div>
+      </div>
+    </div>
 
-  <div id="private-history" class="history-section" style="display: none;">
-    <h3>Your Trade History</h3>
-    <div id="history-list"></div>
+    <!-- TRADE PANEL -->
+    <div class="dark-trade-panel">
+      <div class="trade-row">
+        <div class="trade-field">
+          <label>Time</label>
+          <div class="input-with-icon">
+            <input type="text" id="trade-time-display" value="00:00:03" readonly>
+            <i class="fa-regular fa-clock"></i>
+          </div>
+        </div>
+        <div class="trade-field">
+          <label>Amount</label>
+          <div class="input-with-icon">
+            <input type="number" id="amount-input" value="1" min="1">
+            <i class="fa-solid fa-dollar-sign"></i>
+          </div>
+        </div>
+      </div>
+      
+      <div class="payout-row">
+        <span>Payout $<span id="payout-val">1.92</span></span>
+        <span style="color: #16A765; font-weight: bold;">+92%</span>
+        <span>Profit +$<span id="profit-val">0.92</span></span>
+      </div>
+
+      <div class="action-row">
+        <button class="btn-buy" id="buy-btn"><i class="fa-solid fa-arrow-trend-up"></i> BUY</button>
+        <button class="btn-sell" id="sell-btn"><i class="fa-solid fa-arrow-trend-down"></i> SELL</button>
+      </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <div class="dark-bottom-nav">
+      <div class="bottom-nav-item active"><i class="fa-solid fa-chart-line"></i><span>Trades</span></div>
+      <div class="bottom-nav-item"><i class="fa-solid fa-tower-broadcast"></i><span>Signals</span></div>
+      <div class="bottom-nav-item" style="border: 1px solid #00d99a; border-radius: 8px; background: rgba(0,217,154,0.1);"><i class="fa-solid fa-robot"></i><span>Classic mode</span></div>
+      <div class="bottom-nav-item"><i class="fa-solid fa-users"></i><span>Social Trading</span></div>
+      <div class="bottom-nav-item"><i class="fa-solid fa-ellipsis"></i><span>More</span></div>
+    </div>
+
   </div>
 
   <script src="script.js"></script>
