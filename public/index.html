@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SignalForge AI</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- TOP NAVIGATION -->
+  <nav class="main-nav">
+    <div class="nav-brand">SIGNAL<span>FORGE AI</span></div>
+    <div class="nav-links">
+      <a href="#" class="active">Trades</a>
+      <a href="#">Signals</a>
+      <a href="#">AI Trader</a>
+      <a href="#">Social Trading</a>
+      <a href="#">Wallet</a>
+      <a href="#">More</a>
+    </div>
+    <div class="nav-auth">
+      <button class="btn-login" id="show-login">Login</button>
+      <button class="btn-register" id="show-register">Register</button>
+    </div>
+  </nav>
+
+  <!-- AUTH MODAL -->
+  <div id="auth-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="close-modal">&times;</span>
+      <h2 id="auth-title">Login to SignalForge</h2>
+      <form id="auth-form">
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" id="auth-email" placeholder="you@example.com" required>
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="auth-password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" id="auth-submit" class="btn-primary">Login</button>
+      </form>
+      <p class="auth-switch" id="auth-switch-text">Don't have an account? <span id="switch-to-register">Register</span></p>
+    </div>
+  </div>
+
+  <!-- PUBLIC TRADING DASHBOARD -->
+  <div id="public-dashboard" class="dashboard-container">
+    
+    <div class="chart-section">
+      <div class="chart-header">
+        <div class="pair-selector">
+          <select id="pair-select">
+            <option>EUR/USD</option>
+            <option>GBP/USD</option>
+            <option>USD/JPY</option>
+            <option>AUD/USD</option>
+            <option>USD/CAD</option>
+          </select>
+        </div>
+        <div class="timeframe-selector">
+          <select id="chart-timeframe">
+            <option value="1">1 sec</option>
+            <option value="5">5 sec</option>
+            <option value="15">15 sec</option>
+            <option value="60">1 min</option>
+            <option value="300">5 min</option>
+          </select>
+        </div>
+        <div class="live-price" id="live-price">1.0854</div>
+      </div>
+
+      <div class="canvas-container">
+        <canvas id="chartCanvas"></canvas>
+        <div class="chart-overlay">
+          <div class="price-levels" id="price-levels"></div>
+          <div class="time-axis" id="time-axis"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trade-controls">
+      <div class="control-row">
+        <div class="control-group">
+          <label>Expiry</label>
+          <select id="trade-expiry">
+            <option value="3">3 sec</option>
+            <option value="5">5 sec</option>
+            <option value="15">15 sec</option>
+            <option value="30">30 sec</option>
+            <option value="60">1 min</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>Amount ($)</label>
+          <input type="number" id="trade-amount" value="10" min="1">
+        </div>
+      </div>
+
+      <div class="payout-info">
+        <span>Payout: <strong>+85%</strong></span>
+        <span>Profit: <strong id="potential-profit">$8.50</strong></span>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn-buy" id="btn-buy">BUY</button>
+        <button class="btn-sell" id="btn-sell">SELL</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="private-history" class="history-section" style="display: none;">
+    <h3>Your Trade History</h3>
+    <div id="history-list"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
