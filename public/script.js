@@ -50,14 +50,22 @@ document.getElementById('auth-form').addEventListener('submit', async (e) => {
     if (!isLoginMode) {
       alert('Registration successful! Please log in.');
       openModal(true);
-    } else {
-      isLoggedIn = true;
-      currentUser = data.email;
-      currentBalance = data.demoBalance; 
-      modal.style.display = 'none';
-      document.getElementById('public-dashboard').style.display = 'block';
-      document.getElementById('private-history').style.display = 'block';
-      updateUI();
+   } else {
+  isLoggedIn = true;
+  currentUser = data.email;
+  currentBalance = data.demoBalance; 
+  modal.style.display = 'none';
+  
+  // SWITCH FROM LIGHT LANDING PAGE TO DARK DASHBOARD
+  document.getElementById('landing-page').style.display = 'none';
+  document.getElementById('trading-dashboard').style.display = 'flex';
+  
+  // Update the balance in the top bar
+  document.getElementById('nav-balance').textContent = '$' + parseFloat(data.demoBalance).toFixed(2);
+  
+  // Start the chart
+  startChart();
+}
     }
   } catch (err) {
     alert('Connection error.');
@@ -203,3 +211,15 @@ document.getElementById('trade-amount').addEventListener('input', (e) => {
   const amt = parseFloat(e.target.value) || 0;
   document.getElementById('potential-profit').textContent = `$${(amt * 0.85).toFixed(2)}`;
 });
+// --- LOGOUT FUNCTION ---
+function logout() {
+  // Hide the dark dashboard
+  document.getElementById('trading-dashboard').style.display = 'none';
+  
+  // Show the light landing page again
+  document.getElementById('landing-page').style.display = 'flex';
+  
+  // Reset the login state
+  isLoggedIn = false;
+  currentUser = null;
+}
